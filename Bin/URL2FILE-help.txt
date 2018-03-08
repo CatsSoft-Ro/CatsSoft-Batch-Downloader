@@ -1,0 +1,22 @@
+
+URL2File 1.981208 (C) 1998, Chami.com
+
+Description:
+    Downloads content at a specified URL.
+
+Usage:
+    URL2File <URL> [<FileName>] [-d] [-z] [-h] [-b] [-r <referring URL>]
+                                [-u <login user name>] [-p <login password>]
+                                [-x <proxy address>] [-y <proxy port>]
+                                [-s <proxy user name>] [-t <proxy password>]
+                                [-a <user agent string>] [-n <sender>]
+                                [-o <timeout in seconds>]
+                                
+Examples:
+    URL2File http://www.chami.com/url2file/test.htm
+    URL2File ftp://ftp.chami.com/README
+
+Details:
+    http://www.chami.com/url2file/
+
+

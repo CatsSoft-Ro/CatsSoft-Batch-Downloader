@@ -1,0 +1,41 @@
+
+
+INetGet v1.01 - Lightweight command-line front-end to WinINet
+Copyright (c) 2015 LoRd_MuldeR <mulder2@gmx.de>. Some rights reserved.
+Built on Sep 26 2015 at 23:56:42, MSVC 10.1, Win-x86, Release
+
+NOTE: This binary is more than a year old, there probably is a new version.
+Check http://muldersoft.com/ or https://github.com/lordmulder/ for updates!
+
+Check http://muldersoft.com/ or https://github.com/lordmulder/ for updates!
+
+Usage:
+  INetGet.exe [options] <source_addr> <output_file>
+
+Required:
+  <source_addr> : Specifies the source internet address (URL)
+  <output_file> : Specifies the output file, you can specify "-" for STDOUT
+
+Optional:
+  --verb=<verb> : Specify the HTTP method (verb) to be used, default is GET
+  --data=<data> : Append data to request, in 'x-www-form-urlencoded' format
+  --no-proxy    : Don't use proxy server for address resolution
+  --agent=<str> : Overwrite the default 'user agent' string used by INetGet
+  --no-redir    : Disable automatic redirection, enabled by default
+  --insecure    : Don't fail, if server certificate is invalid (HTTPS only)
+  --refer=<url> : Include the given 'referrer' address in the request
+  --notify      : Trigger a system sound when the download completed/failed
+  --time-cn=<n> : Specifies the connection timeout, in seconds
+  --time-rc=<n> : Specifies the receive timeout, in seconds
+  --timeout=<n> : Specifies the connection & receive timeouts, in seconds
+  --retry=<n>   : Specifies the max. number of connection attempts
+  --no-retry    : Do not retry, if the connection failed (i.e. '--retry=0')
+  --force-crl   : Make the connection fail, if CRL could *not* be retrieved
+  --config=<cf> : Read INetGet options from specified configuration file(s)
+  --help        : Show this help screen
+  --slunk       : Enable slunk mode, this is intended for kendo master only
+  --verbose     : Enable detailed diagnostic output (for debugging)
+
+Examples:
+  INetGet.exe http://www.warr.org/buckethead.html output.html
+  INetGet.exe --verb=POST --data="foo=bar" http://localhost/form.php result

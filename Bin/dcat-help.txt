@@ -1,0 +1,43 @@
+Usage 1: dcat [OPTION]... URL [more URLs]... [FILE | PATH]
+Usage 2: dcat [OPTION]... FILE
+Simple download client for the Download Catalyst engine.
+
+Options:
+  -a<HH>:<MM>        Schedule download to run only for the given
+                      amount of time.
+  -b                 Attempt to import a broken download by some
+                      other app (like a browser).
+  -c<FILENAME>       Use custom config file (the default values will
+                      be saved to this file if they are not present)
+                      Can also be used without any URL or filename
+                      to simply save a default config file.
+  -d<DURATION>       Max. URL pinging duration in milli-seconds
+  -i<INTERVAL>       No. of milli-seconds to sleep before each data
+                      retrieval step; tweak this for optimum CPU
+                      usage (defaults to 200 msecs i.e. 0.2 second)
+  -l<SPEED_LIMIT>    Speed limit in KiloBytes/sec, fraction allowed
+                      (defaults to 0 for unlimited bandwidth)
+  -m<MIN_SIZE>       Minimum size (in bytes) of a download part
+                      defaults to 51200 (50 KB)
+  -p[<PROXY_URL>]    Enable HTTP-Proxy fot HTTP & FTP
+                      (PROXY_URL defaults to http://localhost:8080)
+  -r<RETRIES>        Max retries per thread (defauls is 5)
+  -n<WAIT_SECS>      Seconds to wait before restarting a stangnant
+                     thread (default = 10s, 0 means no restart)
+  -s(4|5)            Use local SOCKS v4 or v5 proxy server
+  -su<USER_NAME>     Set user-name for SOCKS v4/v5
+  -sp<PASS_WORD>     Set password for SOCKS v4/v5
+  -t<THREADS>        Specify no. of threads to use (defaults to 4)
+  -v                 Be verbose (display a lot of messages)
+  -h                 Display this message
+
+Note: There MUST NOT be any white-space between the option switch and
+the option argument (if any).
+
+With no FILE, uses the remote filename as the output filename. If so,
+the file will be saved in the PATH, if specified.
+
+The second form of the command is useful for resuming a previous
+download, when you want to use the same URL(s) as before.
+
+Mail bugs and suggestions to <qool@users.sourceforge.net>.
