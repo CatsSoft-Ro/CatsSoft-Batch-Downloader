@@ -1,19 +1,19 @@
 @echo off
 Title CatsSoft Downloader
 color 0B
-mode con:cols=90 lines=25
+mode con:cols=90 lines=26
 echo.
 setlocal EnableDelayedExpansion
 SET "DestDir=%USERPROFILE%\Downloads\CatsSoft Downloader"
 SET "VideoDestDir=%USERPROFILE%\Videos\CatsSoft Video Downloader"
+SET "AudioDestDir=%USERPROFILE%\Music\CatsSoft Audio Downloader"
 echo.
 if exist "%DestDir%" (
  goto menu
 ) else (
- MD "%USERPROFILE%\Downloads\CatsSoft Downloader"
- MD "%USERPROFILE%\Videos\CatsSoft Video Downloader"
- %SystemRoot%\explorer.exe "CatsSoft_download_required_files.exe"
- timeout /t 3 /nobreak
+ MD "%DestDir%"
+ MD "%VideoDestDir%"
+ MD "%AudioDestDir%"
  goto menu
 )
 goto menu
@@ -26,7 +26,7 @@ goto :eof
     @cls
     Title CatsSoft Downloader
     color 0B
-    mode con:cols=90 lines=25
+    mode con:cols=90 lines=26
     @cls
     echo.    -----------------------------------
     echo.      ===  Welcome to main menu! ===   
@@ -51,6 +51,7 @@ goto :eof
     echo.    [9] Download video with youtube-dl.
     echo.
     echo.    [0] Close.
+    echo.
     echo.
 
     set /p option=Type 1, 2, 3, 4, 5, 6, 7, 8 or 0 then press ENTER: 
@@ -116,8 +117,29 @@ cls
     set /P "Password=PASSWORD: "
     echo.
     if exist "%DestDir%\%FileName%" (
-     del /f /s /q  "%DestDir%\%FileName%"
-     goto down_aria2c
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%FileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_aria2c
+     if /I "%c%" EQU "N" goto :no_aria2c
+     :yes_aria2c
+       echo Rename the file...
+       ren "%DestDir%\%FileName%" "backup_%FileName%"
+       echo Done.
+       goto down_aria2c
+     :no_aria2c
+       echo Delete file...
+       del "%DestDir%\%FileName%"
+       echo Done.
+       goto down_aria2c
     ) else (
      goto down_aria2c
     )
@@ -175,8 +197,29 @@ cls
     set /P "Password=PASSWORD: "
     echo.
     if exist "%DestDir%\%FileName%" (
-     del /f /s /q  "%DestDir%\%FileName%"
-     goto down_axel
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%FileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_axel
+     if /I "%c%" EQU "N" goto :no_axel
+     :yes_axel
+       echo Rename the file...
+       ren "%DestDir%\%FileName%" "backup_%FileName%"
+       echo Done.
+       goto down_axel
+     :no_axel
+       echo Delete file...
+       del "%DestDir%\%FileName%"
+       echo Done.
+       goto down_axel
     ) else (
      goto down_axel
     )
@@ -234,8 +277,29 @@ cls
     set /P "Password=PASSWORD: "
     echo.
     if exist "%DestDir%\%FileName%" (
-     del /f /s /q  "%DestDir%\%FileName%"
-     goto down_curl
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%FileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_curl
+     if /I "%c%" EQU "N" goto :no_curl
+     :yes_curl
+       echo Rename the file...
+       ren "%DestDir%\%FileName%" "backup_%FileName%"
+       echo Done.
+       goto down_curl
+     :no_curl
+       echo Delete file...
+       del "%DestDir%\%FileName%"
+       echo Done.
+       goto down_curl
     ) else (
      goto down_curl
     )
@@ -293,8 +357,29 @@ cls
     set /P "Password=PASSWORD: "
     echo.
     if exist "%DestDir%\%FileName%" (
-     del /f /s /q "%DestDir%\%FileName%"
-     goto down_dcat
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%FileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_dcat
+     if /I "%c%" EQU "N" goto :no_dcat
+     :yes_dcat
+       echo Rename the file...
+       ren "%DestDir%\%FileName%" "backup_%FileName%"
+       echo Done.
+       goto down_dcat
+     :no_dcat
+       echo Delete file...
+       del "%DestDir%\%FileName%"
+       echo Done.
+       goto down_dcat
     ) else (
      goto down_dcat
     )
@@ -352,8 +437,29 @@ cls
     set /P "Password=PASSWORD: "
     echo.
     if exist "%DestDir%\%FileName%" (
-     del /f /s /q "%DestDir%\%FileName%"
-     goto down_inetget
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%FileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_inetget
+     if /I "%c%" EQU "N" goto :no_inetget
+     :yes_inetget
+       echo Rename the file...
+       ren "%DestDir%\%FileName%" "backup_%FileName%"
+       echo Done.
+       goto down_inetget
+     :no_inetget
+       echo Delete file...
+       del "%DestDir%\%FileName%"
+       echo Done.
+       goto down_inetget
     ) else (
      goto down_inetget
     )
@@ -411,8 +517,29 @@ cls
     set /P "Password=PASSWORD: "
     echo.
     if exist "%DestDir%\%FileName%" (
-     del /f /s /q "%DestDir%\%FileName%"
-     goto down_pget
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%FileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_pget
+     if /I "%c%" EQU "N" goto :no_pget
+     :yes_pget
+       echo Rename the file...
+       ren "%DestDir%\%FileName%" "backup_%FileName%"
+       echo Done.
+       goto down_pget
+     :no_pget
+       echo Delete file...
+       del "%DestDir%\%FileName%"
+       echo Done.
+       goto down_pget
     ) else (
      goto down_pget
     )
@@ -470,8 +597,29 @@ cls
     set /P "Password=PASSWORD: "
     echo.
     if exist "%DestDir%\%FileName%" (
-     del /f /s /q "%DestDir%\%FileName%"
-     goto down_url2file
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%FileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_url2file
+     if /I "%c%" EQU "N" goto :no_url2file
+     :yes_url2file
+       echo Rename the file...
+       ren "%DestDir%\%FileName%" "backup_%FileName%"
+       echo Done.
+       goto down_url2file
+     :no_url2file
+       echo Delete file...
+       del "%DestDir%\%FileName%"
+       echo Done.
+       goto down_url2file
     ) else (
      goto down_url2file
     )
@@ -529,8 +677,29 @@ cls
     set /P "Password=PASSWORD: "
     echo.
     if exist "%DestDir%\%FileName%" (
-     del /f /s /q "%DestDir%\%FileName%"
-     goto down_wget
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%FileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_wget
+     if /I "%c%" EQU "N" goto :no_wget
+     :yes_wget
+       echo Rename the file...
+       ren "%DestDir%\%FileName%" "backup_%FileName%"
+       echo Done.
+       goto down_wget
+     :no_wget
+       echo Delete file...
+       del "%DestDir%\%FileName%"
+       echo Done.
+       goto down_wget
     ) else (
      goto down_wget
     )
@@ -569,7 +738,7 @@ cls
     @cls
     Title CatsSoft Video Downloader
     color 0B
-    mode con:cols=90 lines=25
+    mode con:cols=90 lines=26
     @cls
     echo.
     echo.    -----------------------------------
@@ -633,8 +802,29 @@ cls
     echo Domain: %Domain%
     echo.
     if exist "%VideoDestDir%\%VideoFileName%" (
-     del /f /s /q "%VideoDestDir%\%VideoFileName%"
-     goto down_video
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%VideoFileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_video
+     if /I "%c%" EQU "N" goto :no_video
+     :yes_video
+       echo Rename the file...
+       ren "%VideoDestDir%\%VideoFileName%" "backup_%VideoFileName%"
+       echo Done.
+       goto down_video
+     :no_video
+       echo Delete file...
+       del "%VideoDestDir%\%VideoFileName%"
+       echo Done.
+       goto down_video
     ) else (
      goto down_video
     )
@@ -683,9 +873,30 @@ cls
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%AudioUrl%") DO set "Domain=%%B"
     echo Domain: %Domain%
     echo.
-    if exist "%VideoDestDir%\%AudioFileName%" (
-     del /f /s /q "%VideoDestDir%\%AudioFileName%"
-     goto down_audio
+    if exist "%AudioDestDir%\%AudioFileName%" (
+     echo.
+     echo Warning!
+     echo.
+     echo This file "%AudioFileName%" already exists.
+     echo.
+     echo Type "Y" and rename the file.
+     echo.
+     echo Type "N" and delete the file.
+     echo.
+     set /P "c=Are you sure you want to continue [Y/N]?: "
+     echo.
+     if /I "%c%" EQU "Y" goto :yes_audio
+     if /I "%c%" EQU "N" goto :no_audio
+     :yes_audio
+       echo Rename the file...
+       ren "%AudioDestDir%\%AudioFileName%" "backup_%AudioFileName%"
+       echo Done.
+       goto down_audio
+     :no_audio
+       echo Delete file...
+       del "%AudioDestDir%\%AudioFileName%"
+       echo Done.
+       goto down_audio
     ) else (
      goto down_audio
     )
@@ -693,14 +904,14 @@ cls
     echo.
     echo Start Download audio file ...
     echo.
-    youtube-dl.exe --quiet --no-part --newline --console-title --continue -x -f bestaudio --audio-quality 0 --audio-format mp3 "%AudioUrl%" -o "%VideoDestDir%\%%(title)s-%%(id)s.%%(ext)s"
+    youtube-dl.exe --quiet --no-part --newline --console-title --continue -x -f bestaudio --audio-quality 0 --audio-format mp3 "%AudioUrl%" -o "%AudioDestDir%\%%(title)s-%%(id)s.%%(ext)s"
     echo.
-    for %%g in ("%VideoDestDir%\%AudioFileName%") do set "MP3FileName=%%~ng"
+    for %%g in ("%AudioDestDir%\%AudioFileName%") do set "MP3FileName=%%~ng"
     echo %MP3FileName%
     echo.
-    if exist "%VideoDestDir%\%MP3FileName%.mp3" (
+    if exist "%AudioDestDir%\%MP3FileName%.mp3" (
      echo The audio files "%MP3FileName%.mp3" has been sucessfully downloaded!
-     %SystemRoot%\explorer.exe "%VideoDestDir%"
+     %SystemRoot%\explorer.exe "%AudioDestDir%"
      goto close_audio
     ) else (
      echo The audio files "%MP3FileName%.mp3" could not be downloaded! Try again later.
