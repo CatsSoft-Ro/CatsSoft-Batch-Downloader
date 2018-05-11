@@ -54,7 +54,7 @@ goto :eof
     echo.
     echo.
 
-    set /p "option=Type 1, 2, 3, 4, 5, 6, 7, 8 or 0 then press ENTER: "
+    set /p "option=Type 1, 2, 3, 4, 5, 6, 7, 8, 9 or 0 then press ENTER: "
 
     if %option% EQU 0 (
         goto close
@@ -82,7 +82,9 @@ goto :eof
         echo.
         echo ---------------------------------------------------------------------------------
         echo.
-        echo.Press any key to return to the menu. . .
+        echo   	=== Press any key to return to the main menu ===
+        echo.
+        echo ---------------------------------------------------------------------------------
         echo.
         pause>nul
         goto menu
@@ -103,19 +105,29 @@ cls
     echo.
     set /P "LinkAddress=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     for %%g in ("%LinkAddress%") do set "FileName=%%~nxg"
     echo File: %FileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%LinkAddress%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     echo Type your username (if necessary)
     echo.
     set /P "Username=USERNAME: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Type your login password (if necessary)
     echo.
     set /P "Password=PASSWORD: "
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo.
@@ -127,17 +139,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_aria2c
-     if /I "%c%" EQU "N" goto :no_aria2c
+     :choice_aria2c
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_aria2c
+     If /I "%choice%"=="N" goto no_aria2c
+     echo Incorrect input & goto choice_aria2c
+     rem If yes, rename the file
      :yes_aria2c
-       echo Rename the file...
+       echo Rename the file "%FileName%" ...
        ren "%DestDir%\%FileName%" "backup_%FileName%"
        echo Done.
        goto down_aria2c
+     rem If no, delete the file
      :no_aria2c
-       echo Delete file...
+       echo Delete the file "%FileName%" ...
        del "%DestDir%\%FileName%"
        echo Done.
        goto down_aria2c
@@ -146,12 +161,17 @@ cls
     )
     :down_aria2c
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download using Aria2c...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     aria2c.exe -c "%Linkaddress%" -o "%FileName%" -d "%DestDir%" --http-user=%Username% --http-passwd=%Password%
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo The files "%FileName%" has been sucessfully downloaded!
@@ -166,7 +186,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -185,19 +207,29 @@ cls
     echo.
     set /P "LinkAddress=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     for %%g in ("%LinkAddress%") do set "FileName=%%~nxg"
     echo File: %FileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%LinkAddress%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     echo Type your username (if necessary)
     echo.
     set /P "Username=USERNAME: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Type your login password (if necessary)
     echo.
     set /P "Password=PASSWORD: "
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo.
@@ -209,17 +241,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_axel
-     if /I "%c%" EQU "N" goto :no_axel
+     :choice_axel
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     if /I "%choice%"=="Y" goto yes_axel
+     if /I "%choice%"=="N" goto no_axel
+     echo Incorrect input & goto choice_axel
+     rem If yes, rename the file
      :yes_axel
-       echo Rename the file...
+       echo Rename the file "%FileName%" ...
        ren "%DestDir%\%FileName%" "backup_%FileName%"
        echo Done.
        goto down_axel
+     rem If no, delete the file
      :no_axel
-       echo Delete file...
+       echo Delete the file "%FileName%" ...
        del "%DestDir%\%FileName%"
        echo Done.
        goto down_axel
@@ -228,12 +263,17 @@ cls
     )
     :down_axel
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download using Axel ...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     axel.exe -q -a -n 1000 "%Linkaddress%" -o "%DestDir%\%FileName%"
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo The files "%FileName%" has been sucessfully downloaded!
@@ -248,7 +288,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -267,8 +309,12 @@ cls
     echo.
     set /P "LinkAddress=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     for %%g in ("%LinkAddress%") do set "FileName=%%~nxg"
     echo File: %FileName%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%LinkAddress%") DO set "Domain=%%B"
     echo Domain: %Domain%
@@ -277,9 +323,13 @@ cls
     echo.
     set /P "Username=USERNAME: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Type your login password (if necessary)
     echo.
     set /P "Password=PASSWORD: "
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo.
@@ -291,17 +341,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_curl
-     if /I "%c%" EQU "N" goto :no_curl
+     :choice_curl
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_curl
+     If /I "%choice%"=="N" goto no_curl
+     echo Incorrect input & goto choice_curl
+     rem If yes, rename the file
      :yes_curl
-       echo Rename the file...
+       echo Rename the file "%FileName%" ...
        ren "%DestDir%\%FileName%" "backup_%FileName%"
        echo Done.
        goto down_curl
+     rem If no, delete the file
      :no_curl
-       echo Delete file...
+       echo Delete the file "%FileName%" ...
        del "%DestDir%\%FileName%"
        echo Done.
        goto down_curl
@@ -310,12 +363,17 @@ cls
     )
     :down_curl
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download using curl ...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     curl.exe -C -k -# --url "%Linkaddress%" -o "%DestDir%\%FileName%" -u %Username%:%Password%
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo The files "%FileName%" has been sucessfully downloaded!
@@ -330,7 +388,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -349,19 +409,29 @@ cls
     echo.
     set /P "LinkAddress=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     for %%g in ("%LinkAddress%") do set "FileName=%%~nxg"
     echo File: %FileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%LinkAddress%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     echo Type your username (if necessary)
     echo.
     set /P "Username=USERNAME: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Type your login password (if necessary)
     echo.
     set /P "Password=PASSWORD: "
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo.
@@ -373,17 +443,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_dcat
-     if /I "%c%" EQU "N" goto :no_dcat
+     :choice_dcat
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_dcat
+     If /I "%choice%"=="N" goto no_dcat
+     echo Incorrect input & goto choice_dcat
+     rem If yes, rename the file
      :yes_dcat
-       echo Rename the file...
+       echo Rename the file "%FileName%" ...
        ren "%DestDir%\%FileName%" "backup_%FileName%"
        echo Done.
        goto down_dcat
+     rem If no, delete the file
      :no_dcat
-       echo Delete file...
+       echo Delete the file "%FileName%" ...
        del "%DestDir%\%FileName%"
        echo Done.
        goto down_dcat
@@ -392,12 +465,17 @@ cls
     )
     :down_dcat
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start download using dcat ...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     dcat.exe -r "%Linkaddress%" -o "%DestDir%" "-su%Username%" "-sp%Password%"
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo The files "%FileName%" has been sucessfully downloaded!
@@ -412,7 +490,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -431,19 +511,29 @@ cls
     echo.
     set /P "LinkAddress=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     for %%g in ("%LinkAddress%") do set "FileName=%%~nxg"
     echo File: %FileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%LinkAddress%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     echo Type your username (if necessary)
     echo.
     set /P "Username=USERNAME: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Type your login password (if necessary)
     echo.
     set /P "Password=PASSWORD: "
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo.
@@ -455,17 +545,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_inetget
-     if /I "%c%" EQU "N" goto :no_inetget
+     :choice_inetget
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_inetget
+     If /I "%choice%"=="N" goto no_inetget
+     echo Incorrect input & goto choice_inetget
+     rem If yes, rename the file
      :yes_inetget
-       echo Rename the file...
+       echo Rename the file "%FileName%" ...
        ren "%DestDir%\%FileName%" "backup_%FileName%"
        echo Done.
        goto down_inetget
+     rem If no, delete the file
      :no_inetget
-       echo Delete file...
+       echo Delete the file "%FileName%" ...
        del "%DestDir%\%FileName%"
        echo Done.
        goto down_inetget
@@ -474,12 +567,17 @@ cls
     )
     :down_inetget
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download using inetget ...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     INetGet.exe --notify "%Linkaddress%" "%DestDir%\%FileName%"
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo The files "%FileName%" has been sucessfully downloaded!
@@ -494,7 +592,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -513,19 +613,29 @@ cls
     echo.
     set /P "LinkAddress=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     for %%g in ("%LinkAddress%") do set "FileName=%%~nxg"
     echo File: %FileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%LinkAddress%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     echo Type your username (if necessary)
     echo.
     set /P "Username=USERNAME: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Type your login password (if necessary)
     echo.
     set /P "Password=PASSWORD: "
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo.
@@ -537,17 +647,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_pget
-     if /I "%c%" EQU "N" goto :no_pget
+     :choice_pget
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_pget
+     If /I "%choice%"=="N" goto no_pget
+     echo Incorrect input & goto choice_pget
+     rem If yes, rename the file
      :yes_pget
-       echo Rename the file...
+       echo Rename the file "%FileName%" ...
        ren "%DestDir%\%FileName%" "backup_%FileName%"
        echo Done.
        goto down_pget
+     rem If no, delete the file
      :no_pget
-       echo Delete file...
+       echo Delete the file "%FileName%" ...
        del "%DestDir%\%FileName%"
        echo Done.
        goto down_pget
@@ -556,12 +669,17 @@ cls
     )
     :down_pget
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download using pget ...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     pget.exe --trace -o "%FileName%" -d "%DestDir%" "%Linkaddress%" 
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo The files "%FileName%" has been sucessfully downloaded!
@@ -576,7 +694,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -595,19 +715,29 @@ cls
     echo.
     set /P "LinkAddress=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     for %%g in ("%LinkAddress%") do set "FileName=%%~nxg"
     echo File: %FileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%LinkAddress%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     echo Type your username (if necessary)
     echo.
     set /P "Username=USERNAME: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Type your login password (if necessary)
     echo.
     set /P "Password=PASSWORD: "
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo.
@@ -619,17 +749,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_url2file
-     if /I "%c%" EQU "N" goto :no_url2file
+     :choice_url2file
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_url2file
+     If /I "%choice%"=="N" goto no_url2file
+     echo Incorrect input & goto choice_url2file
+     rem If yes, rename the file
      :yes_url2file
-       echo Rename the file...
+       echo Rename the file "%FileName%" ...
        ren "%DestDir%\%FileName%" "backup_%FileName%"
        echo Done.
        goto down_url2file
+     rem If no, delete the file
      :no_url2file
-       echo Delete file...
+       echo Delete the file "%FileName%" ...
        del "%DestDir%\%FileName%"
        echo Done.
        goto down_url2file
@@ -638,12 +771,17 @@ cls
     )
     :down_url2file
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download using url2file ...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     url2file.exe "%Linkaddress%" "%DestDir%\%FileName%" -u "%Username%" -p "%Password%"
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo The files "%FileName%" has been sucessfully downloaded!
@@ -658,7 +796,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -677,19 +817,29 @@ cls
     echo.
     set /P "LinkAddress=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     for %%g in ("%LinkAddress%") do set "FileName=%%~nxg"
     echo File: %FileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%LinkAddress%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     echo Type your username (if necessary)
     echo.
     set /P "Username=USERNAME: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Type your login password (if necessary)
     echo.
     set /P "Password=PASSWORD: "
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo.
@@ -701,17 +851,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_wget
-     if /I "%c%" EQU "N" goto :no_wget
+     :choice_wget
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_wget
+     If /I "%choice%"=="N" goto no_wget
+     echo Incorrect input & goto choice_wget
+     rem If yes, rename the file
      :yes_wget
-       echo Rename the file...
+       echo Rename the file "%FileName%" ...
        ren "%DestDir%\%FileName%" "backup_%FileName%"
        echo Done.
        goto down_wget
+     rem If no, delete the file
      :no_wget
-       echo Delete file...
+       echo Delete the file "%FileName%" ...
        del "%DestDir%\%FileName%"
        echo Done.
        goto down_wget
@@ -720,12 +873,17 @@ cls
     )
     :down_wget
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download using wget ...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     wget.exe --continue --show-progress --no-check-certificate "%Linkaddress%" -O "%DestDir%\%FileName%" --user=%Username% --password=%Password%
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%DestDir%\%FileName%" (
      echo The files "%FileName%" has been sucessfully downloaded!
@@ -740,7 +898,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -789,7 +949,9 @@ cls
         echo.
         echo ---------------------------------------------------------------------------------
         echo.
-        echo.Press any key to return to the menu. . .
+        echo   	=== Press any key to return to the main menu ===
+        echo.
+        echo ---------------------------------------------------------------------------------
         echo.
         pause>nul
         goto youtube
@@ -810,13 +972,19 @@ cls
     echo.
     set /P "VideoUrl=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     for /f "delims=" %%a in ('youtube-dl --skip-download --get-filename "%VideoUrl%"') do @set VideoFileName=%%a
     echo File: %VideoFileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%VideoUrl%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%VideoDestDir%\%VideoFileName%" (
      echo.
@@ -828,17 +996,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_video
-     if /I "%c%" EQU "N" goto :no_video
+     :choice_video
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_video
+     If /I "%choice%"=="N" goto no_video
+     echo Incorrect input & goto choice_video
+     rem If yes, rename the video file
      :yes_video
-       echo Rename the file...
+       echo Rename the file "%VideoFileName%" ...
        ren "%VideoDestDir%\%VideoFileName%" "backup_%VideoFileName%"
        echo Done.
        goto down_video
+     rem If no, delete the video file
      :no_video
-       echo Delete file...
+       echo Delete the file "%VideoFileName%" ...
        del "%VideoDestDir%\%VideoFileName%"
        echo Done.
        goto down_video
@@ -847,10 +1018,15 @@ cls
     )
     :down_video
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download video file ...
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     youtube-dl.exe --quiet --no-part --newline --console-title --continue -f mp4 "%VideoUrl%" -o "%VideoDestDir%\%%(title)s-%%(id)s.%%(ext)s"
     echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%VideoDestDir%\%VideoFileName%" (
      echo The video files "%VideoFileName%" has been sucessfully downloaded!
@@ -865,7 +1041,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto youtube
@@ -884,13 +1062,19 @@ cls
     echo.
     set /P "AudioUrl=URL: "
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     for /f "delims=" %%a in ('youtube-dl --skip-download --get-filename "%AudioUrl%"') do @set AudioFileName=%%a
     echo File: %AudioFileName%
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     FOR /F "tokens=1,2,3,4,5 delims=/" %%A IN ("%AudioUrl%") DO set "Domain=%%B"
     echo Domain: %Domain%
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     if exist "%AudioDestDir%\%AudioFileName%" (
      echo.
@@ -902,17 +1086,20 @@ cls
      echo.
      echo Type "N" and delete the file.
      echo.
-     set /P "c=Are you sure you want to continue [Y/N]?: "
-     echo.
-     if /I "%c%" EQU "Y" goto :yes_audio
-     if /I "%c%" EQU "N" goto :no_audio
+     :choice_audio
+     set /P "choice=Are you sure you want to continue [Y/N]?: %=%"
+     If /I "%choice%"=="Y" goto yes_audio
+     If /I "%choice%"=="N" goto no_audio
+     echo Incorrect input & goto choice_audio
+     rem If yes, rename the audio file
      :yes_audio
-       echo Rename the file...
+       echo Rename the file "%AudioFileName%" ...
        ren "%AudioDestDir%\%AudioFileName%" "backup_%AudioFileName%"
        echo Done.
        goto down_audio
+     rem If no, delete the audio file
      :no_audio
-       echo Delete file...
+       echo Delete the file "%AudioFileName%" ...
        del "%AudioDestDir%\%AudioFileName%"
        echo Done.
        goto down_audio
@@ -921,9 +1108,15 @@ cls
     )
     :down_audio
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     echo Start Download audio file ...
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     youtube-dl.exe --quiet --no-part --newline --console-title --continue -x -f bestaudio --audio-quality 0 --audio-format mp3 "%AudioUrl%" -o "%AudioDestDir%\%%(title)s-%%(id)s.%%(ext)s"
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     for %%g in ("%AudioDestDir%\%AudioFileName%") do set "MP3FileName=%%~ng"
     echo %MP3FileName%
@@ -941,7 +1134,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto youtube
@@ -958,16 +1153,23 @@ cls
     echo.
     echo Check for updates
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     youtube-dl.exe -U
     echo.
     echo Successful update!
+    echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto youtube
@@ -984,16 +1186,23 @@ cls
     echo.
     echo Youtube-dl help
     echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     rem expression "%~dp0Bin" means the location of an executing batch file
     cd /d "Bin"
     youtube-dl.exe --help
     echo.
     echo Done!
+    echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
     cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo   	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto youtube
@@ -1005,5 +1214,5 @@ cls
 :: /*************************************************************************************/
 :close
 goto :eof
-exit
 ENDLOCAL
+exit
